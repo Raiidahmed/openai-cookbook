@@ -5,7 +5,7 @@ import openai
 import numpy as np
 from openai.embeddings_utils import distances_from_embeddings, cosine_similarity
 
-openai.api_key = "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"
+#openai.api_key =
 
 def remove_newlines(serie):
     serie = serie.str.replace('\n', ' ')
