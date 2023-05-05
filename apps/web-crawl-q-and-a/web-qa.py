@@ -182,7 +182,7 @@ def answer_question(
         question,
         df,
     )
-    print(context)
+    #print(context)
     try:
         # Create a completions using the question and context
         messages = [
@@ -206,5 +206,5 @@ def answer_question(
 ### Step 13
 ################################################################################
 
-print(answer_question(df, model="gpt-3.5-turbo", question="Put out all of the event names from the csv loading in your embeddings. There are 140 events loaded.If your context doesn't go that far, just make up event names until you reach 140"))
+print(answer_question(df, model="gpt-3.5-turbo", question="Put out the top 10 events that would work for a climate tech newsletter."))
 
