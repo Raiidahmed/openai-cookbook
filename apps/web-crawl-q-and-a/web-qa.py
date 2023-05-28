@@ -5,7 +5,7 @@ import openai
 import numpy as np
 from openai.embeddings_utils import distances_from_embeddings, cosine_similarity
 
-#openai.api_key =
+openai.api_key = ""
 
 def remove_newlines(serie):
     serie = serie.str.replace('\n', ' ')
@@ -138,7 +138,7 @@ df.head()
 ################################################################################
 
 def create_context(
-    question, df, max_len = 4097, size="ada"
+    question, df, max_len = 2048, size="ada"
 ):
     """
     Create a context for a question by finding the most similar context from the dataframe
@@ -149,7 +149,6 @@ def create_context(
 
     # Get the distances from the embeddings
     df['distances'] = distances_from_embeddings(q_embeddings, df['embeddings'].values, distance_metric='cosine')
-
 
     returns = []
     cur_len = 0
@@ -182,7 +181,7 @@ def answer_question(
         question,
         df,
     )
-    #print(context)
+    print(context)
     try:
         # Create a completions using the question and context
         messages = [
@@ -193,9 +192,10 @@ def answer_question(
 
         response = openai.ChatCompletion.create(
             model=model,
-            messages=messages
+            messages=messages,
+            max_tokens=2048
         )
-        return response["choices"][0]["message"]["content"].strip()
+        return response ["choices"][0]["message"]["content"].strip()
 
     except Exception as e:
         print(e)
@@ -206,5 +206,4 @@ def answer_question(
 ### Step 13
 ################################################################################
 
-print(answer_question(df, model="gpt-3.5-turbo", question="Put out the top 10 events that would work for a climate tech newsletter."))
-
+print(answer_question(df, model="gpt-4", question="Give me a list of just event names from the sheet"))
